@@ -14,11 +14,10 @@ const products=JSON.parse(productsString);
 const server=http.createServer((req,res)=>{
 
     // const path=req.url;
+    // console.log(req.method);
 
     const path=url.parse(req.url,true);
-
-    //  console.log(req.method);
-    // console.log(path);
+    
 
 
     res.writeHead(200,{
@@ -36,36 +35,33 @@ const server=http.createServer((req,res)=>{
 
         if(req.method=="GET")
         {
-        const id=path.query.id;
-        const singleData=products.filter((ele)=>
-        {
-            return ele.id==id;
-        })
-        res.end(JSON.stringify(singleData));
-        }
+            const id=path.query.id;
 
-        else if(req.method=="POST")
-        {
-            res.end("this is post");
+            const singleData=products.filter((ele)=>{
+                return ele.id==id;
+            })
+            res.end(JSON.stringify(singleData));
+        }
+        else if(req.method=="POST"){
+
             let body="";
-            req.on('data', (data)=>
-            {
+            req.on('data',(data)=>{
                 body+=data;
             })
 
-            req.on('end',()=>
-            {
-                // console.log(body);
+            req.on('end',()=>{
                 let product=JSON.parse(body);
                 products.push(product);
-                fs.writeFile  ("./products.json",JSON.stringify(products),(err)=>
-                {
+                fs.writeFile("./products.json",JSON.stringify(products),(err)=>{
                     res.end(JSON.stringify({message:"product added"}));
                 });
-                // console.log(products);
-            })
-        }
 
+
+            })
+
+            
+
+        }
         else if(req.method=="PUT"){
 
             // product id 
@@ -99,7 +95,9 @@ const server=http.createServer((req,res)=>{
                 
                 fs.writeFile("./products.json",JSON.stringify(products),(err)=>{
                     res.end(JSON.stringify({message:"product updated"}));
-                });           
+                });
+
+                    
 
 
             })
@@ -122,23 +120,29 @@ const server=http.createServer((req,res)=>{
                 res.end(JSON.stringify({message:"product deleted"}));
             });
 
+            
+
+
+
         }
+        
+        
+        
 
-}
-
+      
+    }
     else {
         res.writeHead(404,{
             "Content-Type":"application/json"
         });
-        // res.statusCode=404;
-        res.end(JSON.stringify({message:"Not found"}));
+        res.end(JSON.stringify({message:"Not Found anything for this URL"}));
     }
 
+    
 
 });
 
 server.listen("3000","127.0.0.1",()=>{
     console.log("server is running");
 })
-
 
