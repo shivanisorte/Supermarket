@@ -33,7 +33,7 @@ fetch("http://localhost:3000/products")
           <li class="list-group-item">Type : ${product.type}</li>
         </ul>
         <div class="card-body">
-          <a href="#" class="card-link" onclick="getSingleProduct(${product.id})">View</a>
+        <a href="product.html?id=${product.id}" class="card-link btn btn-success">View</a>
          
         </div>
       </div>`;
