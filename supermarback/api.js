@@ -37,7 +37,7 @@ const server=http.createServer((req,res)=>{
         {
             const id=path.query.id;
 
-            const singleData=products.filter((ele)=>{
+            const singleData=products.find((ele)=>{
                 return ele.id==id;
             })
             res.end(JSON.stringify(singleData));

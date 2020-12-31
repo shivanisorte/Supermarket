@@ -30,7 +30,7 @@ fetch("http://localhost:3000/products")
         <ul class="list-group list-group-flush">
           <li class="list-group-item">Price : ${product.price}</li>
           <li class="list-group-item">${ratingString}</li>
-          <li class="list-group-item">Type : ${product.type}</li>
+          
         </ul>
         <div class="card-body">
         <a href="product.html?id=${product.id}" class="card-link btn btn-success">View</a>
@@ -39,6 +39,8 @@ fetch("http://localhost:3000/products")
       </div>`;
 
     });
+
+    // deleted <li class="list-group-item">Type : ${product.type}</li> from productstring
 
 
     document.getElementById('product_container').innerHTML=productsString;
