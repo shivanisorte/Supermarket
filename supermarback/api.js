@@ -13,6 +13,8 @@ const products=JSON.parse(productsString);
 
 const server=http.createServer((req,res)=>{
 
+    
+
     // const path=req.url;
     // console.log(req.method);
 
@@ -23,6 +25,7 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "OPTIONS, POST, GET, PUT, PATCH, DELETE",
+        "Access-Control-Allow-Headers":"*",
         "Content-Type":"application/json"
     });
 
@@ -33,7 +36,12 @@ const server=http.createServer((req,res)=>{
     }
     else if(path.pathname=="/product"){
 
-        if(req.method=="GET")
+        if(req.method=="OPTIONS"){
+
+            res.end();
+           
+        } 
+        else if(req.method=="GET")
         {
             const id=path.query.id;
 
@@ -44,6 +52,9 @@ const server=http.createServer((req,res)=>{
         }
         else if(req.method=="POST"){
 
+            console.log("its working");
+
+
             let body="";
             req.on('data',(data)=>{
                 body+=data;
@@ -51,6 +62,7 @@ const server=http.createServer((req,res)=>{
 
             req.on('end',()=>{
                 let product=JSON.parse(body);
+                console.log(product);
                 products.push(product);
                 fs.writeFile("./products.json",JSON.stringify(products),(err)=>{
                     res.end(JSON.stringify({message:"product added"}));
