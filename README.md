@@ -41,5 +41,4 @@ Changes in the json file
 Changes in the frontend
 ![DELETE](/med/delfe.jpeg) -->
 
-A video of this app working
-![Supermarket](/med/supermarket.mp4)
+To see how this app works, visit [this link.](https://twitter.com/ShivaniSorte/status/1349033393518833664)
