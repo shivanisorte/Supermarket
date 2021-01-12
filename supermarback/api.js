@@ -96,17 +96,19 @@ const server=http.createServer((req,res)=>{
                         ele.title=product.title;
                         ele.type=product.type;
                         ele.description=product.description;
-                        ele.height=product.height;
                         ele.width=product.width;
                         ele.price=product.price;
-                        ele.rating=product.rating;
 
                     }
                 })
 
                 
                 fs.writeFile("./products.json",JSON.stringify(products),(err)=>{
-                    res.end(JSON.stringify({message:"product updated"}));
+                    const updatedProduct=products.find((ele)=>{
+                        return ele.id==id;
+                    })
+                    res.end(JSON.stringify(updatedProduct));
+                    // res.end(JSON.stringify({message:"product updated"}));
                 });
 
                     
@@ -132,14 +134,10 @@ const server=http.createServer((req,res)=>{
                 res.end(JSON.stringify({message:"product deleted"}));
             });
 
-            
-
 
 
         }
-        
-        
-        
+                
 
       
     }
@@ -157,4 +155,3 @@ const server=http.createServer((req,res)=>{
 server.listen("3000","127.0.0.1",()=>{
     console.log("server is running");
 })
-

@@ -22,6 +22,10 @@ function createProduct(){
     })
     .then((response)=>response.json())
     .then((data)=>{
+        document.getElementById("addform").reset();
+        
+    document.getElementById("message").innerHTML=
+    `<p class="alert alert-success">Product Added Successfully</p>`;
         console.log(data);
     }).catch((err)=>{
         console.log(err);

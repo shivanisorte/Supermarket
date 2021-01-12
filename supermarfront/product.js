@@ -21,6 +21,9 @@ fetch("http://localhost:3000/product?id="+id)
 
     let productString=`
         <div class="card-body">
+        <h5 class="card-title" style="font-size:50px; text-align:center">${product.emoji}${product.emoji}${product.emoji}</h5>
+        </div>
+        <div class="card-body">
             <h5 class="card-title">${product.title}</h5>
             <p class="card-text">${product.description}</p>
         </div>
@@ -30,10 +33,15 @@ fetch("http://localhost:3000/product?id="+id)
             <li class="list-group-item">Type : ${product.type}</li>
         </ul>
         <div class="card-body">
-        <a href="#" class="card-link btn btn-success">Update</a>
-        <a href="#" class="card-link btn btn-danger" onclick="deleteProduct()">Delete</a>
+        <a href="#" class="card-link btn btn-success">Buy Now</a>
         </div>
     `;
+
+    // removed from productString
+    // <div class="card-body">
+    //     <a href="#" class="card-link btn btn-success">Update</a>
+    //     <a href="#" class="card-link btn btn-danger" onclick="deleteProduct()">Delete</a>
+    //     </div>
 
     document.getElementById("product").innerHTML=productString;
 
@@ -44,26 +52,26 @@ fetch("http://localhost:3000/product?id="+id)
 
 
 
-function deleteProduct(){
-    fetch("http://localhost:3000/product?id="+id,{
-        method:"DELETE"
-    })
-    .then((response)=>response.json())
-    .then((data)=>{
+// function deleteProduct(){
+//     fetch("http://localhost:3000/product?id="+id,{
+//         method:"DELETE"
+//     })
+//     .then((response)=>response.json())
+//     .then((data)=>{
         
-        document.getElementById("message").innerHTML=
-        `<p class="alert alert-success">${data.message}</p>`;
+//         document.getElementById("message").innerHTML=
+//         `<p class="alert alert-success">${data.message}</p>`;
 
-        document.getElementById("productname").style.display="none";
-        document.getElementById("product").style.display="none";
-
-
-        setTimeout(()=>{
-            location="index.html";
-        },3000)
+//         document.getElementById("productname").style.display="none";
+//         document.getElementById("product").style.display="none";
 
 
+//         setTimeout(()=>{
+//             location="index.html";
+//         },3000)
 
-    })
-}
+
+
+//     })
+// }
 

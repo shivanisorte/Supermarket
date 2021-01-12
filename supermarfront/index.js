@@ -1,3 +1,4 @@
+//to fetch all products
 
 fetch("http://localhost:3000/products")
 .then((response)=>response.json())
@@ -24,6 +25,9 @@ fetch("http://localhost:3000/products")
         productsString+=`
         <div class="card productcard" style="width: 18rem;" >
         <div class="card-body">
+        <div style="margin-bottom:30px">
+        <h5 class="card-title" style="font-size:50px; text-align:center">${product.emoji}${product.emoji}${product.emoji}</h5>
+        </div>
           <h5 class="card-title">${product.title}</h5>
           <p class="card-text">${product.description}</p>
         </div>
