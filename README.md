@@ -2,7 +2,7 @@
 
 ## Developed using HTML, CSS, JS and Node.js
 
-### The Frontend
+<!-- ### The Frontend
 ![frontend](/med/frontend.jpeg)
 
 ### JSON file in the beginning
@@ -26,7 +26,7 @@ Changes in the frontend
 ![POST](/med/postfe.jpeg)
 
 #### PUT method
-Editing the description of product with id==12 (Maggi) from "2 minute noodles" to "Two minute noodles" 
+Editing the description of product with id==12 (Maggi) from "2 minute noodles" to "Two minute noodles"
 ![PUT](/med/put.jpeg)
 Changes in the json file
 ![PUT](/med/putjson.jpeg)
@@ -39,4 +39,7 @@ Deleting product with id==11 (Real orange juice)
 Changes in the json file
 ![DELETE](/med/deljson.jpeg)
 Changes in the frontend
-![DELETE](/med/delfe.jpeg)
+![DELETE](/med/delfe.jpeg) -->
+
+A video of this app working
+![Supermarket](/med/supermarket.mp4)
