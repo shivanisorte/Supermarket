@@ -12,9 +12,10 @@ fetch("http://localhost:3000/products")
     products.forEach((product) => {
 
         let ratingString="";
+        let avgRating=product.rating/product.rating_count;
         for(let i=1;i<=5;i++)
         {
-            if(i<=product.rating){
+            if(i<avgRating){
                 ratingString+=`<img src="images/activestar.png" width="20px"/>`;
             }
             else{

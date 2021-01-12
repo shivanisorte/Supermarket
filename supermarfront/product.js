@@ -6,14 +6,24 @@ fetch("http://localhost:3000/product?id="+id)
 .then((product)=>{
 
     console.log(product);
-    let ratingString="";
-    for(let i=1;i<=5;i++)
+    let myRating="";
+
+    for(i=0; i<5;i++)
     {
-        if(i<=product.rating){
-            ratingString+=`<img src="images/activestar.png" width="20px"/>`;
+        myRating+=`<i class="fa fa-star myrate notrated" style="font-size: 25px" aria-hidden="true" onmouseover="makeRated(${i})" onclick="submitRating(${product.id})" onmouseout="makeUnrated()"></i>`;
+    }
+
+    let ratingString="";
+    
+    let avgRating=Math.round(product.rating/product.rating_count);
+
+    for(let i=0;i<=4;i++)
+    {
+        if(i<avgRating){
+            ratingString+=`<i class="fa fa-star" style="font-size: 25px; color:gold" aria-hidden="true"></i>`;
         }
         else{
-            ratingString+=`<img src="images/graystar.png" width="20px"/>`;
+            ratingString+=`<i class="fa fa-star" style="font-size: 25px; color:grey" aria-hidden="true"></i>`;
         }
     }
     
@@ -29,7 +39,8 @@ fetch("http://localhost:3000/product?id="+id)
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">Price : &#8377; ${product.price}</li>
-            <li class="list-group-item">${ratingString}</li>
+            <li class="list-group-item" id="rating>${ratingString} (${product.rating_count} ratings)</li>
+            <li class="list-group-item" id="myrating">${myRating} (My rating)</li>
             <li class="list-group-item">Type : ${product.type}</li>
         </ul>
         <div class="card-body">
@@ -74,4 +85,79 @@ fetch("http://localhost:3000/product?id="+id)
 
 //     })
 // }
+
+function makeRated(index)
+{
+    var stars=document.getElementById("myrating").children;
+
+    for(let i=0;i<stars.length;i++)
+    {
+        stars[i].classList.remove("rated");
+        stars[i].classList.add("notrated");
+    }
+
+
+    for(let i=0;i<=index;i++)
+    {
+        stars[i].classList.remove("notrated");
+        stars[i].classList.add("rated");
+    }
+
+    // console.log(ev.target.className);
+
+    // if(ev.target.classList.contains("notrated")){
+    //     ev.target.classList.remove("notrated");
+    //     ev.target.classList.add("rated");
+    // }
+    // else{
+    //     ev.target.classList.remove("rated");
+    //     ev.target.classList.add("notrated");
+    // }
+}
+
+function makeUnrated(){
+    var stars=document.getElementById("myrating").children;
+    for(let i=0;i<stars.length;i++)
+    {
+        stars[i].classList.remove("rated");
+        stars[i].classList.add("notrated");
+    }
+}
+
+
+function submitRating(id)
+{
+    console.log("called");
+    let rating=document.getElementById("myrating").getElementsByClassName("rated").length;
+    console.log(rating);
+    fetch("http://localhost:3000/updateRating?id="+id,{
+        method:"PUT",
+        body:JSON.stringify({rating:rating}),
+        headers:{
+            "Content-Type":"application/json"
+        }
+    })
+    .then((response)=>response.json())
+    .then((product)=>{
+        let ratingString="";
+    
+        let avgRating=Math.round(product.rating/product.rating_count);
+    
+        for(let i=0;i<=4;i++)
+        {
+            if(i<avgRating){
+                ratingString+=`<i class="fa fa-star" style="font-size: 25px; color:gold" aria-hidden="true"></i>`;
+            }
+            else{
+                ratingString+=`<i class="fa fa-star" style="font-size: 25px; color:grey" aria-hidden="true"></i>`;
+            }
+        }
+        document.getElementById("rating").innerHTML=`${ratingString} (${product.rating_count} rating)`
+        console.log(product);
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
+}
+
 

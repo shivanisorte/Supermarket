@@ -29,6 +29,12 @@ const server=http.createServer((req,res)=>{
         "Content-Type":"application/json"
     });
 
+    if(req.method=="OPTIONS"){
+
+        res.end();
+       
+    } 
+
     if(path.pathname=="/" || path.pathname=="/products"){
 
         res.end(productsString);
@@ -36,12 +42,7 @@ const server=http.createServer((req,res)=>{
     }
     else if(path.pathname=="/product"){
 
-        if(req.method=="OPTIONS"){
-
-            res.end();
-           
-        } 
-        else if(req.method=="GET")
+     if(req.method=="GET")
         {
             const id=path.query.id;
 
@@ -141,6 +142,40 @@ const server=http.createServer((req,res)=>{
 
       
     }
+    else if(path.pathname=="/updateRating")
+    {
+        if(req.method=='PUT'){
+        // product id 
+        const id=path.query.id;
+
+        // product data
+        let body="";
+        req.on('data',(data)=>{
+            body+=data;
+        })
+
+        req.on('end',()=>{
+            let product=JSON.parse(body);        
+
+        products.forEach((ele)=>{
+            if(ele.id==id){
+
+                ele.rating=Number(ele.rating)+Number(product.rating);
+                ele.rating_count= Number(ele.rating_count)+1;
+
+            }
+        })
+        
+
+        fs.writeFile("./products.json",JSON.stringify(products),(err)=>{
+            const updatedProduct=products.find((ele)=>{
+                return ele.id==id;
+            })
+            res.end(JSON.stringify(updatedProduct));
+        });
+        });
+    }}
+
     else {
         res.writeHead(404,{
             "Content-Type":"application/json"

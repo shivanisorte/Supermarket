@@ -8,6 +8,7 @@ function createProduct(){
     product.price=document.getElementById("price").value;
     product.rating=document.getElementById("rating").value;
     product.type=document.getElementById("type").value;
+    product.emoji=document.getElementById("emoji").value;
 
     console.log(product);
 
